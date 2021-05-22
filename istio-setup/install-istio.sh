@@ -18,7 +18,7 @@ for i in $(seq "${NUM_CLUSTERS}"); do
       istioctl --context="cluster${i}" install -y -f -
 
   echo "Expose services in cluster${i}"
-  kubectl --context="cluster${i}" apply -n istio-system -f samples/multicluster/expose-services.yaml
+  kubectl --context="clustyer${i}" apply -n istio-system -f samples/multicluster/expose-services.yaml
 
   echo
 done

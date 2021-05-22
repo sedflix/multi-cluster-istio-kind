@@ -14,5 +14,6 @@ for i in $(seq "${NUM_CLUSTERS}"); do
       --from-file="cluster${i}/ca-key.pem" \
       --from-file="cluster${i}/root-cert.pem" \
       --from-file="cluster${i}/cert-chain.pem"
+  echo "----"
 done
 
