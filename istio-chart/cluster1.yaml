@@ -1,0 +1,23 @@
+global:
+  multiCluster:
+    clusterName: cluster1
+  network: network1
+
+istio-discovery:
+  global:
+    multiCluster:
+      clusterName: cluster1
+    network: network1
+
+istio-ingress:
+  gateways:
+    istio-ingressgateway:
+      label:
+        topology.istio.io/network: network1
+      env:
+        # sni-dnat adds the clusters required for AUTO_PASSTHROUGH mode
+        ISTIO_META_ROUTER_MODE: "sni-dnat"
+        # traffic through this gateway should be routed inside the network
+        ISTIO_META_REQUESTED_NETWORK_VIEW: network1
+
+

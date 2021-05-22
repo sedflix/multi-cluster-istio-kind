@@ -1,0 +1,58 @@
+global:
+  jwtPolicy: "first-party-jwt"
+  meshID: "mesh"
+  multiCluster:
+    enabled: true
+    globalDomainSuffix: "local"
+  mountMtlsCerts: false
+
+istio-base:
+  enabled: true
+
+istio-discovery:
+  enabled: true
+  meshConfig:
+    defaultConfig:
+      proxyMetadata:
+        # Enable Istio agent to handle DNS requests for known hosts
+        # Unknown hosts will automatically be resolved using upstream dns servers in resolv.conf
+        ISTIO_META_DNS_CAPTURE: "true"
+
+
+istio-egress:
+  enabled: false
+  gateways:
+    istio-egressgateway:
+      zvpn:
+        suffix: local
+        enabled: true
+
+
+istio-ingress:
+  enabled: true
+  gateways:
+    istio-ingressgateway:
+      ports:
+        - name: status-port
+          port: 15021
+          targetPort: 15021
+        - name: tls
+          port: 15443
+          targetPort: 15443
+        - name: tls-istiod
+          port: 15012
+          targetPort: 15012
+        - name: tls-webhook
+          port: 15017
+          targetPort: 15017
+        - port: 80
+          targetPort: 8080
+          name: http2
+          protocol: TCP
+        - port: 443
+          targetPort: 8443
+          name: https
+          protocol: TCP
+      zvpn:
+        enabled: false
+        suffix: local

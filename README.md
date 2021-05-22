@@ -80,6 +80,10 @@ cd istio-setup
 Go inside a pod and try: `curl -sS helloworld.sample:5000/hello`. The response should be like when run multiple times
 
 ```
+while true; do curl -s -o /dev/null "helloworld.sample:5000/hello"; done
+```
+
+```
 Hello version: v1, instance: helloworld-v1-776f57d5f6-znwk5
 Hello version: v2, instance: helloworld-v2-54df5f84b-qmg8t..
 ...

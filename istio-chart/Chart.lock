@@ -1,0 +1,15 @@
+dependencies:
+- name: istio-base
+  repository: https://sedflix.github.io/charts
+  version: 1.10.1
+- name: istio-discovery
+  repository: https://sedflix.github.io/charts
+  version: 1.10.0
+- name: istio-egress
+  repository: https://sedflix.github.io/charts
+  version: 1.10.0
+- name: istio-ingress
+  repository: https://sedflix.github.io/charts
+  version: 1.10.0
+digest: sha256:e7b871acc0ee74c99c4e06cad241395bbafff003bbcb10eda7a6858497e531aa
+generated: "2021-05-22T19:31:10.817836+05:30"
