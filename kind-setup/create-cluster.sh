@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 # Source: https://github.com/kubernetes-sigs/kubefed/blob/master/scripts/create-clusters.sh
 
 # Copyright 2018 The Kubernetes Authors.
@@ -19,6 +20,7 @@
 # This script handles the creation of multiple clusters using kind and the
 # ability to create and configure an insecure container registry.
 
+set -o xtrace
 set -o errexit
 set -o nounset
 set -o pipefail

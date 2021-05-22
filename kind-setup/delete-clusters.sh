@@ -17,9 +17,11 @@
 # This script handles the deletion of multiple clusters using kind as well as
 # the deletion of the container registry.
 
+set -o xtrace
 set -o errexit
 set -o nounset
 set -o pipefail
+
 
 
 function delete-clusters() {
