@@ -12,7 +12,7 @@ istio-discovery:
 istio-ingress:
   gateways:
     istio-ingressgateway:
-      label:
+      labels:
         topology.istio.io/network: network2
       env:
         # sni-dnat adds the clusters required for AUTO_PASSTHROUGH mode

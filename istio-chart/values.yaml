@@ -4,7 +4,12 @@ global:
   multiCluster:
     enabled: true
     globalDomainSuffix: "local"
-  mountMtlsCerts: false
+  mountMtlsCerts: true
+  logging:
+    level: "default:debug"
+  istiod:
+    enableAnalysis: true
+
 
 istio-base:
   enabled: true
@@ -32,6 +37,7 @@ istio-ingress:
   enabled: true
   gateways:
     istio-ingressgateway:
+
       ports:
         - name: status-port
           port: 15021
@@ -54,5 +60,6 @@ istio-ingress:
           name: https
           protocol: TCP
       zvpn:
-        enabled: false
+        enabled: true
         suffix: local
+
