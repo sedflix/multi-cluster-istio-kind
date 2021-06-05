@@ -1,0 +1,3 @@
+clusterName: "cluster1"
+network: "network1"
+meshID: "mesh"

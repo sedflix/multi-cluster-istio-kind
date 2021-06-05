@@ -1,0 +1,11 @@
+apiVersion: v2
+name: istio-operater-install
+version: 0.0.1
+description: Helm chart for deploying Istio using operator
+appVersion: 1.10.0
+dependencies:
+  - name: istio-operator
+    version: 1.10.0
+    repository: https://sedflix.github.io/charts
+    condition: istio-operator.enabled
+    alias: istio-operator
