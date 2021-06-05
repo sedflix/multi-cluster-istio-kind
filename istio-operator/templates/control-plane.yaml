@@ -1,0 +1,64 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  name: istio-base
+  namespace: {{.Release.Namespace}}
+spec:
+  profile: minimal
+  components:
+    pilot:
+      k8s:
+        resources:
+          limits:
+            cpu: 200m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
+
+    egressGateways:
+      - enabled: true
+        name: istio-external-egressgateway
+        label:
+          app: istio-external-egressgateway
+
+    ingressGateways:
+      - enabled: true
+        name: istio-external-ingressgateway
+        label:
+          app: istio-external-ingressgateway
+        k8s:
+          service:
+            ports:
+              - port: 80
+                targetPort: 8080
+                name: http2
+              - port: 443
+                targetPort: 8443
+                name: https
+              - name: status-port
+                port: 15021
+                targetPort: 15021
+              - name: tls
+                port: 15443
+                targetPort: 15443
+              - name: tls-istiod
+                port: 15012
+                targetPort: 15012
+              - name: tls-webhook
+                port: 15017
+                targetPort: 15017
+
+  meshConfig:
+    defaultConfig:
+      proxyMetadata:
+        # Enable Istio agent to handle DNS requests for known hosts
+        # Unknown hosts will automatically be resolved using upstream dns servers in resolv.conf
+        ISTIO_META_DNS_CAPTURE: "true"
+
+  values:
+    global:
+      meshID: {{ .Values.meshID }}
+      multiCluster:
+        clusterName: {{ .Values.clusterName }}
+      network: {{ .Values.network }}
