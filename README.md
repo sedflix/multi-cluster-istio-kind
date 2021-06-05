@@ -43,7 +43,7 @@ A multicluster service mesh deployment requires that us to establish trust betwe
 common root to generate intermediate certificates for each cluster
 
 ```shell
-cd kind-setup
+cd istio-setup
 ./install-cacerts.sh
 ```
 
@@ -77,7 +77,7 @@ cd istio-setup
 
 ### Test the magic [4](https://istio.io/latest/docs/setup/install/multicluster/verify/)
 
-Go inside a pod and try: `curl -sS helloworld.sample:5000/hello`. The response should be like when run multiple times
+Go inside a pod and try: `k del `. The response should be like when run multiple times
 
 ```
 while true; do curl -s -o /dev/null "helloworld.sample:5000/hello"; done
@@ -89,6 +89,9 @@ Hello version: v2, instance: helloworld-v2-54df5f84b-qmg8t..
 ...
 ```
 
+## Debug
+
+- Go inside the proxy pod and use curl localhost:15000/help
 
 ## References:
 
