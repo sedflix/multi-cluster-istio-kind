@@ -9,8 +9,9 @@ This repo contains the minimal configuration to deploy istio in multi-cluster(on
 - kind
 - istioctl
 
+---
 
-## Steps
+## Cluster Setup
 
 ### Create kind cluster
 
@@ -42,16 +43,21 @@ cluster, create another metallb-configmap.
 A multicluster service mesh deployment requires that us to establish trust between all clusters in the mesh. We use a
 common root to generate intermediate certificates for each cluster
 
+Note: in this script we -label istio namespace as "topology.istio.io/network=network${i}"
+
 ```shell
 cd kind-setup
 ./install-cacerts.sh
 ```
 
-### Install Istio [3](https://istio.io/latest/docs/setup/install/multicluster/multi-primary_multi-network/)
+---
+
+## Istio Setup
+
+### Install Istio using istioctl [3](https://istio.io/latest/docs/setup/install/multicluster/multi-primary_multi-network/)
 
 It does the following for each cluster:
 
-- label istio namespace as "topology.istio.io/network=network${i}"
 - install istiod with configuration in [istio-setup/cluster.yaml](istio-setup/cluster.yaml)
 - install a gateway dedicated to east-west traffic
 - expose all services (*.local) on the east-west gateway
@@ -62,6 +68,39 @@ cd istio-setup
 ./install-istio.yaml
 ```
 
+### Istio Setup using helm
+
+1. Add istio helm repo and update charts
+
+ ```shell
+ cd istio-chart
+ helm repo add sedflix https://sedflix.github.io/charts/
+ helm dependency update
+ ```
+
+2. Install helm charts
+
+ ```shell
+ cd istio-chart
+ ./install.sh
+ ```
+
+---
+
+## Enable endpoint discovery
+
+Now, we need to configure each istiod to watch other clusters api servers. We create a secret with credentials to allow
+Istio to access the other (n-1) remote kubernetes api servers.
+
+```shell
+cd istio-chart/istio-setup
+./enable-endpoint-discovery.sh
+```
+
+---
+
+## Testing
+
 ### Deploy Test Applications [4](https://istio.io/latest/docs/setup/install/multicluster/verify/)
 
 It does the following:
@@ -71,16 +110,16 @@ It does the following:
 - deploy v1 and v2 of helloworld alternatively in each cluster
 
 ```shell
-cd istio-setup
+cd testing
 ./deploy-application.sh
 ```
 
 ### Test the magic [4](https://istio.io/latest/docs/setup/install/multicluster/verify/)
 
-Go inside a pod and try: `k del `. The response should be like when run multiple times
+Go inside a pod and try: `curl -s "helloworld.sample:5000/hello"`. The response should be like when run multiple times
 
 ```
-while true; do curl -s -o /dev/null "helloworld.sample:5000/hello"; done
+while true; do curl -s "helloworld.sample:5000/hello"; done
 ```
 
 ```
