@@ -43,7 +43,7 @@ A multicluster service mesh deployment requires that us to establish trust betwe
 common root to generate intermediate certificates for each cluster
 
 ```shell
-cd istio-setup
+cd kind-setup
 ./install-cacerts.sh
 ```
 
