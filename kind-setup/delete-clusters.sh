@@ -22,7 +22,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-
+NUM_CLUSTERS="${NUM_CLUSTERS:-2}"
 
 function delete-clusters() {
   local num_clusters=${1}

@@ -1,0 +1,27 @@
+
+# https://istio.io/latest/docs/tasks/traffic-management/locality-load-balancing/distribute/
+# https://istio.io/latest/blog/2021/external-locality-failover/
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: helloworld
+  namespace: sample
+spec:
+  host: helloworld.sample.svc.cluster.local
+  trafficPolicy:
+    connectionPool:
+      http:
+        maxRequestsPerConnection: 1
+    loadBalancer:
+      simple: ROUND_ROBIN
+      localityLbSetting:
+        enabled: true
+        failover:
+        - from: region1
+          to: region2
+        - from: region2
+          to: region1
+    outlierDetection:
+      consecutive5xxErrors: 1
+      interval: 1s
+      baseEjectionTime: 1m

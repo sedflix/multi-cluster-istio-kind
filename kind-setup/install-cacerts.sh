@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -o xtrace
-set -o errexit
+#set -o errexit
 set -o nounset
 set -o pipefail
 
@@ -16,6 +16,8 @@ for i in $(seq "${NUM_CLUSTERS}"); do
   make -f ../tools/certs/Makefile.selfsigned.mk "cluster${i}-cacerts"
   kubectl create namespace istio-system --context "cluster${i}"
   kubectl --context="cluster${i}" label namespace istio-system topology.istio.io/network="network${i}"
+  kubectl --context="cluster${i}" label node "cluster${i}-control-plane" topology.kubernetes.io/region="region${i}"
+  kubectl --context="cluster${i}" label node "cluster${i}-control-plane" topology.kubernetes.io/zone="zone${i}"
   kubectl delete secret cacerts -n istio-system --context "cluster${i}"
   kubectl create secret generic cacerts -n istio-system --context "cluster${i}" \
       --from-file="cluster${i}/ca-cert.pem" \
