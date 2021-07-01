@@ -1,0 +1,6 @@
+name: eks-setup
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: Setup Multiple EKS Clusters
