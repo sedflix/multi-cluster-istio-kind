@@ -28,7 +28,7 @@ set -o pipefail
 # shellcheck source=util.sh
 NUM_CLUSTERS="${NUM_CLUSTERS:-2}"
 KIND_IMAGE="${KIND_IMAGE:-}"
-KIND_TAG="${KIND_TAG:-v1.19.4@sha256:796d09e217d93bed01ecf8502633e48fd806fe42f9d02fdd468b81cd4e3bd40b}"
+KIND_TAG="${KIND_TAG:-v1.27.3@sha256:9dd3392d79af1b084671b05bcf65b21de476256ad1dcc853d9f3b10b4ac52dde}"
 OS="$(uname)"
 
 function create-clusters() {
@@ -54,7 +54,7 @@ function fixup-cluster() {
   if [ "$OS" != "Darwin" ];then
     # Set container IP address as kube API endpoint in order for clusters to reach kube API servers in other clusters.
     local docker_ip
-    docker_ip=$(docker inspect --format='{{range .NetworkSettingkc s.Networks}}{{.IPAddress}}{{end}}' "cluster${i}-control-plane")
+    docker_ip=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "cluster${i}-control-plane")
     kubectl config set-cluster "kind-cluster${i}" --server="https://${docker_ip}:6443"
   fi
 
