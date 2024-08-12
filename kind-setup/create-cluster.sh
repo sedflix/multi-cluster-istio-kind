@@ -59,12 +59,12 @@ function fixup-cluster() {
   fi
 
   # Simplify context name
-  kubectl config rename-context "kind-cluster${i}" "cluster${i}"
+  kubectl config rename-context "kind-cluster${i}" "cluster${i}" || true
 }
 
 
 echo "Creating ${NUM_CLUSTERS} clusters"
-create-clusters "${NUM_CLUSTERS}"
+create-clusters "${NUM_CLUSTERS}" || true
 kubectl config use-context cluster1
 
 echo "Kind CIDR is $(docker network inspect -f '{{$map := index .IPAM.Config 0}}{{index $map "Subnet"}}' kind)"

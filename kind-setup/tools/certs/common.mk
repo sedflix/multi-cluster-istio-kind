@@ -19,7 +19,7 @@ INTERMEDIATE_SAN_DNS ?= istiod.istio-system.svc
 
 #------------------------------------------------------------------------
 # variables: workload certs: eg VM
-WORKLOAD_DAYS ?= 1
+WORKLOAD_DAYS ?= 15
 SERVICE_ACCOUNT ?= default
 WORKLOAD_CN ?= Workload
 

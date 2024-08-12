@@ -6,6 +6,7 @@ spec:
       meshID: mesh1
       multiCluster:
         clusterName: cluster{i}
+        enabled: true
       network: network{i}
 
 
