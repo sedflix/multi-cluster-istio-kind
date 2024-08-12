@@ -1,6 +1,7 @@
 # Multi-Cluster Istio on Kind
 
 This repo contains the minimal configuration to deploy istio in multi-cluster(on different networks) mode using kind.
+The architecture created resembles the [one](https://istio.io/latest/docs/setup/install/multicluster/multi-primary_multi-network/) documented in Istio.
 
 ## Dependencies
 
@@ -11,8 +12,25 @@ This repo contains the minimal configuration to deploy istio in multi-cluster(on
 
 ---
 
-## Cluster Setup
+## Makefile Setup
 
+Fast deploy with:
+```shell
+make all
+```
+
+Delete clusters and certs:
+```shell
+make clean
+```
+
+Get help:
+```shell
+make help
+```
+
+
+## Step by Step Cluster Setup
 ### Create kind cluster
 
 ```shell
