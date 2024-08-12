@@ -31,9 +31,12 @@ function delete-clusters() {
     # The context name has been changed when creating clusters by 'create-cluster.sh'.
     # This will result in the context can't be removed by kind when deleting a cluster.
     # So, we need to change context name back and let kind take care about it.
-    kubectl config rename-context "cluster${i}" "kind-cluster${i}"
+    kubectl config rename-context "cluster${i}" "kind-cluster${i}" || true
 
-    kind delete cluster --name "cluster${i}"
+    kind delete cluster --name "kind-cluster${i}" && kind delete cluster --name "cluster${i}"
+    # Clean kubeconfig
+    kubectl config delete-cluster "kind-cluster${i}" && kubectl config delete-cluster "cluster${i}" || true
+    kubectl config delete-context "kind-cluster${i}" && kubectl config delete-context "cluster${i}" || true
   done
 }
 

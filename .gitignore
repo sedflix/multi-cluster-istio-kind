@@ -1,0 +1,8 @@
+# Ignore generated certs
+multi-cluster-istio-kind/kind-setup/certs/*
+
+# Ignore custom cluster files
+istio-setup/cluster[0-9]*.yaml
+
+# Make sure template cluster is tracked
+!cluster.yaml

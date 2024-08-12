@@ -5,6 +5,7 @@ set -o xtrace
 set -o nounset
 set -o pipefail
 
+cd "$(dirname "$0")"
 
 NUM_CLUSTERS="${NUM_CLUSTERS:-2}"
 
