@@ -6,18 +6,19 @@ KUBECONFIG := $(HOME)/.kube/test-config.yaml
 
 export NUM_CLUSTERS
 
-all: create test
+all: cluster istio app
 
-create:
+cluster:
 	./kind-setup/create-cluster.sh
 	./kind-setup/install-metallb.sh
+istio:
 	./kind-setup/install-cacerts.sh
 	./istio-setup/install-istio.sh
 	./istio-chart/enable-endpoint-discovery.sh
-
-test:
+app:
 	./testing/deploy-application.sh
 
+# TODO: remove the certs so they are created fresh again
 clean:
 	./kind-setup/delete-clusters.sh
-# TODO: remove the certs so they are created fresh again
+	rm -rf kind-setup/certs/*
