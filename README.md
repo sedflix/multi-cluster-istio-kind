@@ -17,7 +17,8 @@ This repo contains the minimal configuration to deploy istio in multi-cluster(on
 
 ```shell
 export NUM_CLUSTERS=2
-./kind-setup/create-cluster.sh
+cd kind-setup
+./create-cluster.sh
 ```
 
 ### Install MetalLB [1](https://kind.sigs.k8s.io/docs/user/loadbalancer/)

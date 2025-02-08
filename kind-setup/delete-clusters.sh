@@ -24,13 +24,13 @@ set -o pipefail
 
 NUM_CLUSTERS="${NUM_CLUSTERS:-2}"
 
-function delete-clusters() {
+function delete_clusters() {
   local num_clusters=${1}
 
   for i in $(seq "${num_clusters}"); do
     # The context name has been changed when creating clusters by 'create-cluster.sh'.
     # This will result in the context can't be removed by kind when deleting a cluster.
-    # So, we need to change context name back and let kind take care about it.
+    # So, we need to change context name back and let kind take care of it.
     kubectl config rename-context "cluster${i}" "kind-cluster${i}"
 
     kind delete cluster --name "cluster${i}"
@@ -38,6 +38,6 @@ function delete-clusters() {
 }
 
 echo "Deleting ${NUM_CLUSTERS} clusters"
-delete-clusters "${NUM_CLUSTERS}"
+delete_clusters "${NUM_CLUSTERS}"
 
 echo "Complete"
