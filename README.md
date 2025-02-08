@@ -8,6 +8,7 @@ This repo contains the minimal configuration to deploy istio in multi-cluster(on
 - kubectl
 - kind
 - istioctl
+- [docker-mac-net-connect](https://github.com/chipmk/docker-mac-net-connect) (for macOS users)
 
 ---
 
@@ -34,10 +35,10 @@ The range of IP addresses that kind cluster controls can be obtained
 with `docker network inspect -f '{{$map := index .IPAM.Config 0}}{{index $map "Subnet"}}' kind`
 
 Assuming that the output is of above command is `172.18.0.0/16`, we have
-created [metallb-configmap-1.yaml](./kind-setup/metallb-configmap-1.yaml)
-and [metallb-configmap-2.yaml](./kind-setup/metallb-configmap-2.yaml). This allocates `172.18.255.225-172.18.255.250`
-and `172.18.255.200-172.18.255.224` ip ranges to cluster1 and cluster2 respectively. If you are creating more than two
-cluster, create another metallb-configmap.
+created [metallb-cr-1.yaml](./kind-setup/metallb-cr-1.yaml)
+and [metallb-cr-2.yaml](./kind-setup/metallb-cr-2.yaml). This allocates `172.18.255.1-172.18.255.25`
+and `172.18.255.26-172.18.255.50` ip ranges to cluster1 and cluster2 respectively. If you are creating more than two
+cluster, create another metallb-cr.
 
 ### Install CA Certs [2](https://istio.io/latest/docs/tasks/security/cert-management/plugin-ca-cert/)
 
