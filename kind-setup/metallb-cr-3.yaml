@@ -1,0 +1,15 @@
+# change addresses as per the output of `docker network inspect -f '{{$map := index .IPAM.Config 0}}{{index $map "Subnet"}}' kind`
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: demo-pool
+  namespace: metallb-system
+spec:
+  addresses:
+  - 172.18.255.51-172.18.255.75
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: demo-advertisement
+  namespace: metallb-system
