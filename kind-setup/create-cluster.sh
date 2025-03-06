@@ -25,10 +25,13 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+
+source "$(dirname $(realpath "$0"))/../utils/get-config-files.sh"
+
 # shellcheck source=util.sh
 NUM_CLUSTERS="${NUM_CLUSTERS:-2}"
 KIND_IMAGE="${KIND_IMAGE:-}"
-KIND_TAG="${KIND_TAG:-v1.27.3@sha256:9dd3392d79af1b084671b05bcf65b21de476256ad1dcc853d9f3b10b4ac52dde}"
+KIND_TAG="${KIND_TAG:-v1.27.2+@sha256:9dd3392d79af1b084671b05bcf65b21de476256ad1dcc853d9f3b10b4ac52dde}"
 OS="$(uname)"
 
 function create-clusters() {

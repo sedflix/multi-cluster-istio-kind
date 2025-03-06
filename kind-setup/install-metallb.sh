@@ -5,6 +5,8 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+source "$(dirname $(realpath "$0"))/../utils/get-config-files.sh"
+
 DIR=$(pwd)
 NUM_CLUSTERS="${NUM_CLUSTERS:-2}"
 
