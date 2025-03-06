@@ -7,6 +7,8 @@ set -o pipefail
 
 cd "$(dirname "$0")"
 
+source "$(dirname $(realpath "$0"))/../utils/get-config-files.sh"
+
 NUM_CLUSTERS="${NUM_CLUSTERS:-2}"
 
 mkdir -p certs
