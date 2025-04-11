@@ -16,7 +16,9 @@ istio:
 	./istio-setup/install-istio.sh
 	./istio-chart/enable-endpoint-discovery.sh
 app:
-	./testing/deploy-application.sh
+	./testing/deploy-helloworld.sh
+	./testing/deploy-bookinfo.sh
+	./testing/deploy-curl.sh
 
 # TODO: remove the certs so they are created fresh again
 clean:
