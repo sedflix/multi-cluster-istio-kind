@@ -21,6 +21,6 @@ for i in $(seq "${NUM_CLUSTERS}"); do
   v=$(($(($i%2))+1))
   kubectl apply --context="cluster${i}" \
       -f samples/helloworld/helloworld.yaml \
-      -l version="v${v}" -n sample
+      -l version="v${i}" -n sample
   echo
 done
