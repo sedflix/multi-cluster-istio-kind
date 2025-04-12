@@ -8,5 +8,8 @@ spec:
         clusterName: cluster{i}
         enabled: true
       network: network{i}
-
-
+  meshConfig:
+    defaultConfig:
+      proxyMetadata:
+        ISTIO_META_DNS_CAPTURE: "true"
+        ISTIO_META_DNS_AUTO_ALLOCATE: "true"
