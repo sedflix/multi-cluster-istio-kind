@@ -6,7 +6,7 @@ KUBECONFIG := $(HOME)/.kube/test-config.yaml
 
 export NUM_CLUSTERS
 
-all: cluster istio app
+all: cluster istio app monitoring
 
 cluster:
 	./kind-setup/create-cluster.sh
@@ -20,7 +20,16 @@ app:
 	./testing/deploy-bookinfo.sh
 	./testing/deploy-curl.sh
 
+monitoring:
+	./testing/monitoring/install-observability.sh
+	istioctl dashboard kiali
+
 # TODO: remove the certs so they are created fresh again
 clean:
 	./kind-setup/delete-clusters.sh
 	rm -rf kind-setup/certs/*
+
+clean-istio:
+	kubectl delete ns istio-system
+	kubectl delete ns metallb-system
+	kubectl delete ns istio-operator
