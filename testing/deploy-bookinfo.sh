@@ -15,17 +15,17 @@ NETWORKING_SOURCE_VS="https://raw.githubusercontent.com/istio/istio/refs/heads/r
 
 for i in $(seq "${NUM_CLUSTERS}"); do
   echo "Starting with cluster${i}"
-  kubectl create --context="cluster${i}" namespace "bookinfo-${i}" || true
-  kubectl label --context="cluster${i}" namespace "bookinfo-${i}" \
+  kubectl create --context="cluster${i}" namespace "bookinfo" || true
+  kubectl label --context="cluster${i}" namespace "bookinfo" \
       istio-injection=enabled || true
   kubectl apply --wait --context="cluster${i}" \
       -f "${APP_SOURCE}" \
-      -n "bookinfo-${i}"
+      -n "bookinfo"
   kubectl apply --wait --context="cluster${i}" \
       -f "${NETWORKING_SOURCE_DR}" \
-      -n "bookinfo-${i}"
+      -n "bookinfo"
   kubectl apply --wait --context="cluster${i}" \
       -f "${NETWORKING_SOURCE_VS}" \
-      -n "bookinfo-${i}"
+      -n "bookinfo"
   echo
 done
