@@ -23,8 +23,9 @@ for i in $(seq "${NUM_CLUSTERS}"); do
 
   echo "Generate eastwest gateway in cluster${i}"
   samples/multicluster/gen-eastwest-gateway.sh \
-      --mesh "mesh${i}" --cluster "cluster${i}" --network "network${i}" | \
-      istioctl --context="cluster${i}" install -y -f -
+      --mesh "mesh${i}" --cluster "cluster${i}" --network "network${i}" > cluster${i}-ew-iop.yaml
+
+  istioctl --context="cluster${i}" install -y -f cluster${i}-ew-iop.yaml
 
   echo "Expose services in cluster${i}"
   kubectl --context="cluster${i}" apply -n istio-system -f samples/multicluster/expose-services.yaml
