@@ -15,14 +15,17 @@ istio:
 	./kind-setup/install-cacerts.sh
 	./istio-setup/install-istio.sh
 	./istio-chart/enable-endpoint-discovery.sh
+
 app:
 	./testing/deploy-helloworld.sh
 	./testing/deploy-bookinfo.sh
 	./testing/deploy-curl.sh
 
 monitoring:
-	./testing/monitoring/install-observability.sh
+	./testing/monitoring/metrics/install-observability.sh
 	istioctl dashboard kiali
+
+accesslogs:
 
 # TODO: remove the certs so they are created fresh again
 clean:
@@ -33,3 +36,9 @@ clean-istio:
 	kubectl delete ns istio-system
 	kubectl delete ns metallb-system
 	kubectl delete ns istio-operator
+
+refresh-remote-discovery:
+	./istio-chart/enable-endpoint-discovery.sh
+
+scenario-lbLocality:
+	./scenarios/localityLb/install-scenario.sh

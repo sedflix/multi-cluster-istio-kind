@@ -74,6 +74,8 @@ cd kind-setup
 
 ### Install Istio using istioctl [3](https://istio.io/latest/docs/setup/install/multicluster/multi-primary_multi-network/)
 
+The version installed is the current istioctl binary version. So, you can change version by changing istioctl.
+
 It does the following for each cluster:
 
 - install istiod with configuration in [istio-setup/cluster.yaml](istio-setup/cluster.yaml)
