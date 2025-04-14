@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: productpage
+spec:
+  trafficPolicy:
+    loadBalancer:
+      localityLbSetting:
+        enabled: false
+    outlierDetection:
+      baseEjectionTime: 5s
+      consecutive5xxErrors: 5
+      interval: 5s
+      maxEjectionPercent: 100

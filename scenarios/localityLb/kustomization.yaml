@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - https://raw.githubusercontent.com/istio/istio/refs/heads/release-1.21/samples/bookinfo/networking/destination-rule-all.yaml
+patches:
+  - path: DR-productpage-locality-disabled.yaml # DR-productpage-locality-disabled.yaml Change this for enabled to define the patch
+    target:
+      group: networking.istio.io
+      version: v1alpha3 # because this is 1.21.3. This is currently deprecated
+      kind: DestinationRule
+      name: productpage
